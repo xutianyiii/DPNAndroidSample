@@ -28,6 +28,7 @@ public class GLFrameRenderer implements GLSurfaceView.Renderer{
         mTargetSurface = surface;
         this.mScreenWidth = mScreenWidth;
         this.mScreenHeight = mScreenHeight;
+        Log.e("Deepano","Screen_width = "+ mScreenWidth + "Screen_height = "+ mScreenHeight);
     }
 
     @Override

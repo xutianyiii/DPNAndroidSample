@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
                                 if (usbDevice != null) {
                                     UsbDeviceConnection connection = usbManager.openDevice(usbDevice);
                                     if (connection != null) {
-//                                        String pathInRaspberry =
-//                                                "/sdcard/Download/SSD_MobileNet_object.blob";
+                                        String pathInRaspberry =
+                                               "/sdcard/Download/SSD_MobileNet_object.blob";
                                         String pathInAndroid = Environment.getExternalStorageDirectory()+
                                                 "/SSD_MobileNet_object.blob";
 

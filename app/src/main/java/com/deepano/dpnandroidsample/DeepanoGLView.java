@@ -21,8 +21,9 @@ public class DeepanoGLView extends GLSurfaceView {
 
     private Paint mPaint = null;
 
-    private float scaleRatio = 0;
-    private float offset = 0;
+    private float scaleRatio = 0f;
+    private float offset = 0f;
+    private float f = 0f;
 
     private CoordBox[] coordinateBuffer = null;
 
@@ -50,8 +51,14 @@ public class DeepanoGLView extends GLSurfaceView {
         WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);
 
-        scaleRatio = (float) dm.widthPixels / 1280;
-        offset = (dm.heightPixels - 960 * scaleRatio) / 2;
+        f = (float) dm.heightPixels / dm.widthPixels;
+        if(f > (float) 960 / 1280 ){
+            scaleRatio = (float) dm.widthPixels / 1280;
+            offset = (dm.heightPixels - 960 * scaleRatio) / 2;
+        }else {
+            scaleRatio = (float) dm.heightPixels / 960;
+            offset = (dm.widthPixels - 1280 * scaleRatio) / 2;
+        }
 
         mPaint = new Paint();
         mPaint.setColor(Color.BLUE);
@@ -84,12 +91,21 @@ public class DeepanoGLView extends GLSurfaceView {
         if (coordinateBuffer != null) {
             for (int index = 0; index < this.coordinateBuffer.length; index++) {
 
-                canvas.drawRect(
-                        scaleRatio * coordinateBuffer[index].x1,
-                        offset + scaleRatio * coordinateBuffer[index].y1,
-                        scaleRatio * coordinateBuffer[index].x2,
-                        offset + scaleRatio * coordinateBuffer[index].y2,
-                        mPaint);
+                if(f > (float) 960 / 1280){
+                    canvas.drawRect(
+                            scaleRatio * coordinateBuffer[index].x1,
+                            offset + scaleRatio * coordinateBuffer[index].y1,
+                            scaleRatio * coordinateBuffer[index].x2,
+                            offset + scaleRatio * coordinateBuffer[index].y2,
+                            mPaint);
+                }else{
+                    canvas.drawRect(
+                            offset + scaleRatio * coordinateBuffer[index].x1,
+                            scaleRatio * coordinateBuffer[index].y1,
+                            offset + scaleRatio * coordinateBuffer[index].x2,
+                            scaleRatio * coordinateBuffer[index].y2,
+                            mPaint);
+                }
             }
         }
     }
