@@ -50,7 +50,6 @@ typedef enum NET_CAFFE_TENSFLOW {
 } DP_MODEL_NET;
 
 //
-
 JavaVM *g_VM;
 jobject g_obj;
 jclass g_coordBoxClass;
@@ -124,11 +123,9 @@ Java_com_deepano_dpnandroidsample_DeepanoApiFactory_netProc(
     const char *path = env->GetStringUTFChars(blobPath, 0);
     ALOGE("Blob Path = %s\n", path);
 
-    dp_set_blob_image_size(
-            &BLOB_IMAGE_SIZE); //here is 1280*960;it can be modified to a customization size
+    dp_set_blob_image_size(&BLOB_IMAGE_SIZE); //here is 1280*960;it can be modified to a customization size
     dp_set_blob_parms(blob_nums, &parms); // transfer blob params
     dp_set_blob_mean_std(blob_nums, &mean); //transfer average && std
-
 
     ret = dp_update_model(path); // transfer blob model
     if (ret == 0) {
@@ -261,8 +258,7 @@ void box_callback_model_demo(void *result, void *param) {
         g_VM->DetachCurrentThread();
         return;
     }
-    jmethodID javaCallbackId = env->GetMethodID(javaClass, "getCoordinate",
-                                                "([Lcom/deepano/dpnandroidsample/CoordBox;)V");
+    jmethodID javaCallbackId = env->GetMethodID(javaClass, "getCoordinate", "([Lcom/deepano/dpnandroidsample/CoordBox;)V");
 
     if (javaCallbackId == 0) {
         ALOGE("javaCallbackId is 0\n");
