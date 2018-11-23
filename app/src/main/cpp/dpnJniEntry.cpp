@@ -140,11 +140,9 @@ Java_com_deepano_dpnandroidsample_DeepanoApiFactory_netProc(
 
     DP_MODEL_NET net = DP_SSD_MOBILI_NET;
     dp_register_video_frame_cb(video_callback, &net); // video callback
-    dp_register_box_device_cb(box_callback_model_demo,
-                              &net); //receive the output buffer of the first NN
+    dp_register_box_device_cb(box_callback_model_demo, &net); //receive the output buffer of the first NN
     //dp_register_fps_device_cb(fps_callback,&net); // fps
     //dp_register_parse_blob_time_device_cb(blob_parse_callback,NULL); // model parsing-time
-
 
     ret = dp_start_camera_video(); // NN will start to work if camera is on
     if (ret == 0) {
@@ -294,5 +292,4 @@ void box_callback_model_demo(void *result, void *param) {
     env->CallVoidMethod(g_obj, javaCallbackId, boxArray);
     env->DeleteLocalRef(boxArray);
     env->DeleteLocalRef(javaClass);
-
 }
